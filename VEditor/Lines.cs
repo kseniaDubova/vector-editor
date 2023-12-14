@@ -28,10 +28,17 @@ namespace VEditor
         public float getY1() { return _y1;}
         public float getX2() { return _x2;}    
         public float getY2() { return _y2;}
+
+        public void setX1(float x) { _x1 = x;}
+        public void setY1(float y) { _y1 = y;}
+        public void setX2(float x) { _x2 = x;}
+        public void setY2(float y) { _y2 = y;}
+
         public Color getColor() { return _color;}
         public float getWigth() { return _wight;}
 
-
+        public void setColor(Color color) { _color = color;}
+        public void setWight(float wight) { _wight = wight;}
     }
 
 }
