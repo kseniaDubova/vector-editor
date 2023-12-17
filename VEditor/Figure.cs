@@ -34,7 +34,16 @@ namespace VEditor
         public virtual void Draw(Graphics g) { }
         public virtual string TypeFigure() { return "line"; }
     }
+    public class Linetwo: Figure
+    {
+        public override void Draw(Graphics g)
+        {
 
+            g.DrawLine(new Pen(_color, _wight), Startpoint.X, Startpoint.Y, Endpoint.X, Endpoint.Y);
+
+        }
+        public override string TypeFigure() { return "linel"; }
+    }
     public class Rectangle: Figure
     {
         

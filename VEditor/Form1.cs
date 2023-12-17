@@ -17,19 +17,17 @@ namespace VEditor
     public partial class Form1 : Form
     {
         private bool mouseDown = false;
-
-        private List<Line> arrayLines;
-        private List<List<Line>> arrayLayer;  
+ 
         private List<List<Figure>> arrayLayerFigure;
         Point[][] points;
         Color color, old_color;
         float wight, old_wight;
-        int catch_line_index;
+
         int catch_figure_index;
         bool point_focused;
-        int catch_point_index;
+
         int catchLayerIndex;
-        //Bitmap map = new Bitmap(256, 256);
+
         Graphics graphics;
         string mode;
         string modeFigure;
@@ -39,10 +37,9 @@ namespace VEditor
         {
             InitializeComponent();
 
-            arrayLines = new List<Line>();
-            arrayLayer = new List<List<Line>>();
+
             arrayLayerFigure = new List<List<Figure>>();    
-            arrayLayer.Add(arrayLines);
+
             arrayLayerFigure.Add(new List<Figure>());
             catchLayerIndex = 0;
             points = new Point[1][];
@@ -58,11 +55,10 @@ namespace VEditor
             old_wight = 1;
             point_focused = false;
             catch_figure = -1;
-            catch_line_index = -1;
-            catch_point_index = -1;
+
             catch_figure_index = -1;
-            mode = "line";
-            modeFigure = "line";
+            mode = "linel";
+            modeFigure = "linel";
         }
      
 
@@ -76,36 +72,14 @@ namespace VEditor
                 points[0][0].Y = e.Y;
             }
             */
-            if (mode == "line" || mode == "rectangle" || mode == "circle")
+            if (mode != "change")
             {
                 points[0][0].X = e.X;
                 points[0][0].Y = e.Y;
             }
-            if (mode == "change")
+            else
             {
-                if (modeFigure == "line")
-                {
-                    old_color = arrayLayer[catchLayerIndex][catch_line_index].getColor();
-                    old_wight = arrayLayer[catchLayerIndex][catch_line_index].getWigth();
 
-                    if (catch_point_index == 1)
-                    {
-                        points[0][0].X = (int)arrayLayer[catchLayerIndex][catch_line_index].getX2();
-                        points[0][0].Y = (int)arrayLayer[catchLayerIndex][catch_line_index].getY2();
-                        points[0][1].X = e.X;
-                        points[0][1].Y = e.Y;
-                    }
-                    if (catch_point_index == 2)
-                    {
-                        points[0][0].X = (int)arrayLayer[catchLayerIndex][catch_line_index].getX1();
-                        points[0][0].Y = (int)arrayLayer[catchLayerIndex][catch_line_index].getY1();
-                        points[0][1].X = e.X;
-                        points[0][1].Y = e.Y;
-                    }
-                    arrayLayer[catchLayerIndex].Remove(arrayLayer[catchLayerIndex][catch_line_index]);
-                }
-                else
-                {
                     old_color = arrayLayerFigure[catchLayerIndex][catch_figure_index].getColor();
                     old_wight = arrayLayerFigure[catchLayerIndex][catch_figure_index].getWight();
 
@@ -124,7 +98,7 @@ namespace VEditor
                         points[0][1].Y = e.Y;
                     }
                     arrayLayerFigure[catchLayerIndex].Remove(arrayLayerFigure[catchLayerIndex][catch_figure_index]);
-                }
+                
             }
         }
 
@@ -133,16 +107,17 @@ namespace VEditor
             mouseDown = false;
             points[0][1].X = e.X;
             points[0][1].Y = e.Y;
-            if (mode == "line")
-            {
-                arrayLayer[catchLayerIndex].Add(new Line(points[0][0].X, points[0][0].Y, points[0][1].X, points[0][1].Y, color, wight));
-            }
 
             if (mode == "change")
             {
-                if (modeFigure == "line")
+                if (modeFigure == "linel")
                 {
-                    arrayLayer[catchLayerIndex].Add(new Line(points[0][0].X, points[0][0].Y, points[0][1].X, points[0][1].Y, old_color, old_wight));
+                    Linetwo tmp = new Linetwo();
+                    tmp.setStartPoint(points[0][0]);
+                    tmp.setEndPoint(points[0][1]);
+                    tmp.setColor(old_color);
+                    tmp.setWight(old_wight);
+                    arrayLayerFigure[catchLayerIndex].Add(tmp);
                 }
                 if (modeFigure == "rectangle")
                 {
@@ -163,25 +138,38 @@ namespace VEditor
                     arrayLayerFigure[catchLayerIndex].Add(tmp);
                 }
             }
+            else
+            {
+                if (mode == "linel")
+                {
+                    Linetwo tmp = new Linetwo();
+                    tmp.setStartPoint(points[0][0]);
+                    tmp.setEndPoint(points[0][1]);
+                    tmp.setColor(color);
+                    tmp.setWight(wight);
+                    arrayLayerFigure[catchLayerIndex].Add(tmp);
+                }
+                if (mode == "rectangle")
+                {
+                    Rectangle tmp = new Rectangle();
+                    tmp.setStartPoint(points[0][0]);
+                    tmp.setEndPoint(points[0][1]);
+                    tmp.setColor(color);
+                    tmp.setWight(wight);
+                    arrayLayerFigure[catchLayerIndex].Add(tmp);
+                }
+                if (mode == "circle")
+                {
+                    Circle tmp = new Circle();
+                    tmp.setStartPoint(points[0][0]);
+                    tmp.setEndPoint(points[0][1]);
+                    tmp.setColor(color);
+                    tmp.setWight(wight);
+                    arrayLayerFigure[catchLayerIndex].Add(tmp);
+                }
+            }
             
-            if (mode == "rectangle")
-            {
-                Rectangle tmp = new Rectangle();
-                tmp.setStartPoint(points[0][0]);
-                tmp.setEndPoint(points[0][1]);
-                tmp.setColor(color);
-                tmp.setWight(wight);
-                arrayLayerFigure[catchLayerIndex].Add(tmp);
-            }
-            if (mode == "circle")
-            {
-                Circle tmp = new Circle();
-                tmp.setStartPoint(points[0][0]);
-                tmp.setEndPoint(points[0][1]);
-                tmp.setColor(color);
-                tmp.setWight(wight);
-                arrayLayerFigure[catchLayerIndex].Add(tmp);
-            }
+
 
             mode = modeFigure;
 
@@ -202,31 +190,10 @@ namespace VEditor
             {
               
                 point_focused = false;
-                catch_line_index = -1;
-                catch_point_index = -1;
                 catch_figure = -1;
                 catch_figure_index = -1;
                 mode = modeFigure;
 
-                for (int i = 0; i < arrayLayer[catchLayerIndex].Count(); i++)
-                {
-                    if (Math.Abs(arrayLayer[catchLayerIndex][i].getX1() - e.X) < 5 && Math.Abs(arrayLayer[catchLayerIndex][i].getY1() - e.Y) < 5)
-                    {
-                        point_focused = true;
-                        catch_line_index = i;
-                        catch_point_index = 1;
-                        mode = "change";
-                        modeFigure = "line";
-                    }
-                    if (Math.Abs(arrayLayer[catchLayerIndex][i].getX2() - e.X) < 5 && Math.Abs(arrayLayer[catchLayerIndex][i].getY2() - e.Y) < 5)
-                    {
-                        point_focused = true;
-                        catch_line_index = i;
-                        catch_point_index = 2;
-                        mode = "change";
-                        modeFigure = "line";
-                    }
-                }
                 for (int i = 0; i < arrayLayerFigure[catchLayerIndex].Count(); i++)
                 {
                     if (Math.Abs(arrayLayerFigure[catchLayerIndex][i].getStartPoint().X - e.X) < 5 && Math.Abs(arrayLayerFigure[catchLayerIndex][i].getStartPoint().Y - e.Y) < 5)
@@ -246,8 +213,6 @@ namespace VEditor
                         modeFigure = arrayLayerFigure[catchLayerIndex][i].TypeFigure();
                     }
                 }
-
-
             }
             if (point_focused) panel1.Invalidate();
 
@@ -259,16 +224,7 @@ namespace VEditor
             if (point_focused && !mouseDown)
             {
                 float new_x = -1, new_y = -1;
-                if(catch_point_index == 1)
-                {
-                    new_x = arrayLayer[catchLayerIndex][catch_line_index].getX1();
-                    new_y = arrayLayer[catchLayerIndex][catch_line_index].getY1();
-                }
-                if (catch_point_index == 2)
-                {
-                    new_x = arrayLayer[catchLayerIndex][catch_line_index].getX2();
-                    new_y = arrayLayer[catchLayerIndex][catch_line_index].getY2();
-                }
+
                 if (catch_figure == 1)
                 {
                     new_x = arrayLayerFigure[catchLayerIndex][catch_figure_index].getStartPoint().X;
@@ -283,29 +239,10 @@ namespace VEditor
             }
             if (mouseDown)
             {
-                if (mode == "rectangle")
-                {
-                    int x = Math.Min(points[0][0].X, points[0][1].X);
-                    int y = Math.Min(points[0][0].Y, points[0][1].Y);
-                    int wightR = Math.Abs(points[0][1].X - points[0][0].X);
-                    int hightR = Math.Abs(points[0][1].Y - points[0][0].Y);
-                    graphics.DrawRectangle(new Pen(color, wight), x,y, wightR, hightR);
-
-                }
-                
-                if (mode == "circle")
-                {
-                    int x = Math.Min(points[0][0].X, points[0][1].X);
-                    int y = Math.Min(points[0][0].Y, points[0][1].Y);
-                    int wightR = Math.Abs(points[0][1].X - points[0][0].X);
-                    int hightR = Math.Abs(points[0][1].Y - points[0][0].Y);
-                    RectangleF tmp = new RectangleF(x, y, wightR, hightR);
-                    graphics.DrawEllipse(new Pen(color, wight), tmp);
-                }
 
                 if (mode == "change")
                 {
-                    if (modeFigure == "line")
+                    if (modeFigure == "linel")
                     {
                         graphics.DrawLine(new Pen(old_color, old_wight), points[0][0].X, points[0][0].Y, points[0][1].X, points[0][1].Y);
                     }
@@ -329,21 +266,37 @@ namespace VEditor
                     }
 
                 }
-                if (mode == "line")
+                else
                 {
-                    graphics.DrawLine(new Pen(color, wight), points[0][0].X, points[0][0].Y, points[0][1].X, points[0][1].Y);
+                    if (mode == "linel")
+                    {
+                        graphics.DrawLine(new Pen(color, wight), points[0][0].X, points[0][0].Y, points[0][1].X, points[0][1].Y);
+
+                    }
+                    if (mode == "rectangle")
+                    {
+                        int x = Math.Min(points[0][0].X, points[0][1].X);
+                        int y = Math.Min(points[0][0].Y, points[0][1].Y);
+                        int wightR = Math.Abs(points[0][1].X - points[0][0].X);
+                        int hightR = Math.Abs(points[0][1].Y - points[0][0].Y);
+                        graphics.DrawRectangle(new Pen(color, wight), x, y, wightR, hightR);
+
+                    }
+
+                    if (mode == "circle")
+                    {
+                        int x = Math.Min(points[0][0].X, points[0][1].X);
+                        int y = Math.Min(points[0][0].Y, points[0][1].Y);
+                        int wightR = Math.Abs(points[0][1].X - points[0][0].X);
+                        int hightR = Math.Abs(points[0][1].Y - points[0][0].Y);
+                        RectangleF tmp = new RectangleF(x, y, wightR, hightR);
+                        graphics.DrawEllipse(new Pen(color, wight), tmp);
+                    }
 
                 }
-                
+
             }
 
-            foreach(List<Line> layer in arrayLayer)
-            {
-               foreach(Line line in layer)
-                {
-                    graphics.DrawLine(new Pen(line.getColor(), line.getWigth()), line.getX1(), line.getY1(), line.getX2(), line.getY2());
-                }
-            }
  
             foreach (List<Figure> layer in arrayLayerFigure)
             {
@@ -362,17 +315,12 @@ namespace VEditor
 
         private void button11_Click(object sender, EventArgs e)
         {
-            foreach (List<Line> layer in arrayLayer)
-            {
-                layer.Clear();
-            }
+
             foreach(List<Figure> layer in arrayLayerFigure)
             { layer.Clear(); }
 
-            arrayLines.Clear();
-            arrayLayer.Clear();
             arrayLayerFigure.Clear();
-            arrayLayer.Add(arrayLines);
+ 
             arrayLayerFigure.Add(new List<Figure>());
             LayerList.Items.Clear();
             LayerList.Items.Add("слой №1");
@@ -401,12 +349,12 @@ namespace VEditor
             g.Clear(panel1.BackColor);
             
 
-            foreach (List<Line> layer in arrayLayer)
+            foreach (List<Figure> layer in arrayLayerFigure)
             {
-                foreach (Line line in layer)
+                foreach (Figure figure in layer)
                 {
-                    Pen linePen = new Pen(line.getColor(), line.getWigth());
-                    g.DrawLine(linePen, line.getX1(), line.getY1(), line.getX2(), line.getY2());
+                    Pen linePen = new Pen(figure.getColor(), figure.getWight());
+                    figure.Draw(g);
                 }
             }
             pictureBox.Invalidate();
@@ -437,21 +385,19 @@ namespace VEditor
 
         private void button13_Click(object sender, EventArgs e)
         {
-            LayerList.Items.Add($"слой №{arrayLayer.Count()+1}");
+            LayerList.Items.Add($"слой №{arrayLayerFigure.Count()+1}");
           //  arrayLines.Clear();
-            arrayLayer.Add(new List<Line>());
             arrayLayerFigure.Add(new List<Figure>());
            
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            if (arrayLayer.Count > 1)
+            if (arrayLayerFigure.Count > 1)
             {
                 LayerList.Items.Clear();
-                arrayLayer.Remove(arrayLayer[catchLayerIndex]);
                 arrayLayerFigure.Remove(arrayLayerFigure[catchLayerIndex]);
-                for (int i = 0; i < arrayLayer.Count(); i++)
+                for (int i = 0; i < arrayLayerFigure.Count(); i++)
                 {
                     LayerList.Items.Add($"слой №{i + 1}");
                 }
@@ -459,7 +405,7 @@ namespace VEditor
             }
             else
             {
-                arrayLayer[0].Clear();
+                arrayLayerFigure[0].Clear();
             }
             panel1.Invalidate();
         }
@@ -472,8 +418,8 @@ namespace VEditor
 
         private void button15_Click(object sender, EventArgs e)
         {
-            mode = "line";
-            modeFigure = "line";
+            mode = "linel";
+            modeFigure = "linel";
         }
 
         private void button17_Click(object sender, EventArgs e)
