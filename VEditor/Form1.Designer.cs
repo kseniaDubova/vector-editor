@@ -58,16 +58,22 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
             this.muny.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // muny
             // 
             this.muny.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.muny.Controls.Add(this.panel6);
             this.muny.Controls.Add(this.panel5);
             this.muny.Controls.Add(this.panel4);
             this.muny.Controls.Add(this.button11);
@@ -350,6 +356,47 @@
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.button17);
+            this.panel6.Controls.Add(this.button16);
+            this.panel6.Controls.Add(this.button15);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel6.Location = new System.Drawing.Point(227, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(378, 113);
+            this.panel6.TabIndex = 21;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(244, 24);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(67, 65);
+            this.button15.TabIndex = 0;
+            this.button15.Text = "Линия";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(171, 25);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(67, 65);
+            this.button16.TabIndex = 1;
+            this.button16.Text = "Прямоугольник";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(98, 25);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(67, 65);
+            this.button17.TabIndex = 2;
+            this.button17.Text = "Круг";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -368,6 +415,7 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -404,6 +452,10 @@
         private System.Windows.Forms.ListBox LayerList;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button15;
     }
 }
 
