@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -339,6 +340,28 @@ namespace VEditor
  
         }
 
+        private void createTxt(string path)
+        {
+            using (FileStream file = File.Open(path, FileMode.Create))
+            {
+                using (StreamWriter output = new StreamWriter(file))
+                {
+                    output.Write($"Цвет фона: {panel1.BackColor}\n\n");
+                    for (int i = 0; i < arrayLayerFigure.Count(); i++)
+                    {
+                        output.Write($"слой №{i + 1}\n");
+                        foreach (Figure figure in arrayLayerFigure[i])
+                        {
+                            output.Write($"\tТип фигуры: {figure.TypeFigure()}\n");
+                            output.Write($"\t\tТочка начала:{figure.getStartPoint()}\n");
+                            output.Write($"\t\tТочка конца:{figure.getEndPoint()}\n");
+                            output.Write($"\t\tЦвет фигуры:{figure.getColor()}\n");
+                            output.Write($"\t\tШирина линии: {figure.getWight()}\n");
+                        }
+                    }
+                }
+            }
+        }
         private void button10_Click(object sender, EventArgs e)
         {
             //save
@@ -366,6 +389,9 @@ namespace VEditor
                     pictureBox.Image.Save(saveFileDialog1.FileName);    
                 }
             }
+            string path = saveFileDialog1.FileName.Replace("jpg", "txt");
+            createTxt(path);
+
         }
 
         private void button12_Click(object sender, EventArgs e)
