@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace VEditor
 {
     public abstract class Figure
-    {/*
-        public Figure(Point p1, Point p2, Color color, float wight) 
-        {
-            Startpoint = p1;
-            Endpoint = p2;
-            _color = color;
-            _wight = wight;
-        }
-        */
+    {
         public Point Startpoint;
         public Point Endpoint;
         public Color _color;
@@ -34,7 +23,7 @@ namespace VEditor
         public virtual void Draw(Graphics g) { }
         public virtual string TypeFigure() { return "line"; }
     }
-    public class Linetwo: Figure
+    public class Line: Figure
     {
         public override void Draw(Graphics g)
         {

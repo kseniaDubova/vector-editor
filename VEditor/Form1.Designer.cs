@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.muny = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button14 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
@@ -58,16 +63,12 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
             this.muny.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // muny
@@ -85,6 +86,47 @@
             this.muny.Name = "muny";
             this.muny.Size = new System.Drawing.Size(1275, 115);
             this.muny.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.button17);
+            this.panel6.Controls.Add(this.button16);
+            this.panel6.Controls.Add(this.button15);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel6.Location = new System.Drawing.Point(227, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(378, 113);
+            this.panel6.TabIndex = 21;
+            // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(98, 25);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(67, 65);
+            this.button17.TabIndex = 2;
+            this.button17.Text = "Эллипс";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.circle_Click);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(171, 25);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(67, 65);
+            this.button16.TabIndex = 1;
+            this.button16.Text = "Прямоугольник";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.rectangle_Click);
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(244, 24);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(67, 65);
+            this.button15.TabIndex = 0;
+            this.button15.Text = "Линия";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.line_Click);
             // 
             // panel5
             // 
@@ -106,7 +148,7 @@
             this.button14.TabIndex = 18;
             this.button14.Text = "-";
             this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.button14.Click += new System.EventHandler(this.LayerDelete_Click);
             // 
             // button13
             // 
@@ -116,7 +158,7 @@
             this.button13.TabIndex = 17;
             this.button13.Text = "+";
             this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.button13.Click += new System.EventHandler(this.LayerAdd_Click);
             // 
             // label4
             // 
@@ -154,7 +196,7 @@
             this.button12.Size = new System.Drawing.Size(30, 28);
             this.button12.TabIndex = 16;
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.button12.Click += new System.EventHandler(this.backcolor_Click);
             // 
             // label3
             // 
@@ -173,7 +215,7 @@
             this.button11.TabIndex = 18;
             this.button11.Text = "Удалить";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.button11.Click += new System.EventHandler(this.delete_Click);
             // 
             // button10
             // 
@@ -183,7 +225,7 @@
             this.button10.TabIndex = 17;
             this.button10.Text = "Сохранить";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.button10.Click += new System.EventHandler(this.save_Click);
             // 
             // panel3
             // 
@@ -220,7 +262,7 @@
             this.button9.Size = new System.Drawing.Size(30, 28);
             this.button9.TabIndex = 9;
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.button9.Click += new System.EventHandler(this.color2_Click);
             // 
             // button8
             // 
@@ -350,52 +392,9 @@
             this.panel1.Size = new System.Drawing.Size(1275, 547);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            this.panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseClick);
-            this.panel1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDoubleClick);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.button17);
-            this.panel6.Controls.Add(this.button16);
-            this.panel6.Controls.Add(this.button15);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel6.Location = new System.Drawing.Point(227, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(378, 113);
-            this.panel6.TabIndex = 21;
-            // 
-            // button15
-            // 
-            this.button15.Location = new System.Drawing.Point(244, 24);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(67, 65);
-            this.button15.TabIndex = 0;
-            this.button15.Text = "Линия";
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(171, 25);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(67, 65);
-            this.button16.TabIndex = 1;
-            this.button16.Text = "Прямоугольник";
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
-            // 
-            // button17
-            // 
-            this.button17.Location = new System.Drawing.Point(98, 25);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(67, 65);
-            this.button17.TabIndex = 2;
-            this.button17.Text = "Круг";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // Form1
             // 
@@ -404,9 +403,11 @@
             this.ClientSize = new System.Drawing.Size(1275, 662);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.muny);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Vector Editor";
             this.muny.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -415,7 +416,6 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -66,13 +59,7 @@ namespace VEditor
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-            /*
-            if (mode == "rectangle")
-            {
-                points[0][0].X = e.X;
-                points[0][0].Y = e.Y;
-            }
-            */
+       
             if (mode != "change")
             {
                 points[0][0].X = e.X;
@@ -113,7 +100,7 @@ namespace VEditor
             {
                 if (modeFigure == "linel")
                 {
-                    Linetwo tmp = new Linetwo();
+                    Line tmp = new Line();
                     tmp.setStartPoint(points[0][0]);
                     tmp.setEndPoint(points[0][1]);
                     tmp.setColor(old_color);
@@ -143,7 +130,7 @@ namespace VEditor
             {
                 if (mode == "linel")
                 {
-                    Linetwo tmp = new Linetwo();
+                    Line tmp = new Line();
                     tmp.setStartPoint(points[0][0]);
                     tmp.setEndPoint(points[0][1]);
                     tmp.setColor(color);
@@ -314,7 +301,7 @@ namespace VEditor
         }
 
 
-        private void button11_Click(object sender, EventArgs e)
+        private void delete_Click(object sender, EventArgs e)
         {
 
             foreach(List<Figure> layer in arrayLayerFigure)
@@ -330,15 +317,6 @@ namespace VEditor
             panel1.Invalidate();
         }
 
-        private void panel1_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
- 
-        }
 
         private void createTxt(string path)
         {
@@ -362,7 +340,7 @@ namespace VEditor
                 }
             }
         }
-        private void button10_Click(object sender, EventArgs e)
+        private void save_Click(object sender, EventArgs e)
         {
             //save
             PictureBox pictureBox = new PictureBox();
@@ -394,7 +372,7 @@ namespace VEditor
 
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private void backcolor_Click(object sender, EventArgs e)
         {
             if (colorDialog2.ShowDialog() == DialogResult.OK)
             {
@@ -409,15 +387,14 @@ namespace VEditor
             catchLayerIndex = LayerList.SelectedIndex;
         }
 
-        private void button13_Click(object sender, EventArgs e)
+        private void LayerAdd_Click(object sender, EventArgs e)
         {
             LayerList.Items.Add($"слой №{arrayLayerFigure.Count()+1}");
-          //  arrayLines.Clear();
             arrayLayerFigure.Add(new List<Figure>());
            
         }
 
-        private void button14_Click(object sender, EventArgs e)
+        private void LayerDelete_Click(object sender, EventArgs e)
         {
             if (arrayLayerFigure.Count > 1)
             {
@@ -436,25 +413,25 @@ namespace VEditor
             panel1.Invalidate();
         }
 
-        private void button16_Click(object sender, EventArgs e)
+        private void rectangle_Click(object sender, EventArgs e)
         {
             mode = "rectangle";
             modeFigure = "rectangle";
         }
 
-        private void button15_Click(object sender, EventArgs e)
+        private void line_Click(object sender, EventArgs e)
         {
             mode = "linel";
             modeFigure = "linel";
         }
 
-        private void button17_Click(object sender, EventArgs e)
+        private void circle_Click(object sender, EventArgs e)
         {
             mode = "circle";
             modeFigure = "circle";
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void color2_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
